@@ -11,4 +11,6 @@ public interface IUserRepository
     Task CreateAsync(UserDTO entity);
     Task UpdateAsync(string id, UserDTO entity);
     Task DeleteAsync(string id);
+
+    IExecutable<User> GetUsersAsExecutable();
 }

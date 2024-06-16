@@ -9,12 +9,24 @@ namespace WebApplication1.CustomFilter
         protected override void Configure(IFilterConventionDescriptor descriptor)
         {
             descriptor.AddDefaults();
-            descriptor.Operation(500).Name("regex");
-            
-            descriptor.AddProviderExtension(
-                new QueryableFilterProviderExtension(
-                    x => x.AddFieldHandler<RegexFilterOperationHandler>()));
             descriptor.AddDefaultOperations();
+
+            descriptor.Operation(CustomOperations.regex).Name("regex");
+
+            descriptor.Configure<StringOperationFilterInputType>(x => x.Operation(CustomOperations.regex)
+                                                                       .Type<StringType>());
+
+            descriptor.Provider(new QueryableFilterProvider(x => x.AddDefaultFieldHandlers()
+                                                                  .AddFieldHandler<RegexFilterOperationHandler>()));
+
+            /*string pattern = @"\d+";
+            string input = "There are 123 numbers in this string.";
+
+            bool hasMatch = Regex.Matches(input, pattern).Any();*/
+
+            /*descriptor.AddProviderExtension(
+                new QueryableFilterProviderExtension(x => x.AddFieldHandler<RegexFilterOperationHandler>()
+                                                           .AddDefaultFieldHandlers()));*/
         }
     }
 }

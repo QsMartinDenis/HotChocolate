@@ -2,6 +2,6 @@
 
 public static class CustomOperations
 {
-    public const int regex = 1025;
+    public const int regex = 1500;
 }
 

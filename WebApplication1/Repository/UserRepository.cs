@@ -46,6 +46,14 @@ public class UserRepository : IUserRepository
 
     public async Task<IEnumerable<User>> GetAllUsers()
     {
-        return await _users.Find(_ => true).ToListAsync();
+        var result = await _users.Find(_ => true).ToListAsync();
+        return result;
+    }
+
+    public IExecutable<User> GetUsersAsExecutable()
+    {
+        var result = _users.AsExecutable();
+
+        return result;
     }
 }
